@@ -16,9 +16,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "application_users")
 public class User implements UserDetails {
@@ -34,7 +38,7 @@ public class User implements UserDetails {
     private boolean emailConfirmed;
     private boolean blocked;
     private UserRole role;
-    // private List<Recipe> recipes;
+    private List<Recipe> recipes;
 
     @OneToMany(mappedBy = "author")
     private List<Opinion> opinions;
