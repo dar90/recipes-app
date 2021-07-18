@@ -3,7 +3,6 @@ package com.example.api.model;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,11 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.Data;
 
 @Data
@@ -27,14 +24,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-
     private String login;
     private String password;
     private String email;
     private boolean emailConfirmed;
     private boolean blocked;
     private UserRole role;
-    // private List<Recipe> recipes;
+
+    @OneToMany
+    private List<Recipe> recipes;
 
     @OneToMany(mappedBy = "author")
     private List<Opinion> opinions;
@@ -73,5 +71,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return emailConfirmed;
     }
-    
+
 }
