@@ -4,6 +4,7 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
+import com.example.api.dto.LoginForm;
 import com.example.api.dto.RegistrationForm;
 import com.example.api.service.UserService;
 
@@ -39,5 +40,11 @@ public class UserController {
                         .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
     
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginForm loginForm) {
+        return service.generateAccessToken(loginForm)
+                        .<ResponseEntity<String>>map(ResponseEntity::ok)
+                        .orElse(ResponseEntity.badRequest().body(""));
+    }
 
 }
