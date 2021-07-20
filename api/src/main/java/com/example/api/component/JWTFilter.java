@@ -23,10 +23,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Component
-@Slf4j
 public class JWTFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -44,16 +41,14 @@ public class JWTFilter extends OncePerRequestFilter {
                 final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
                 if(authHeader == null || authHeader.isEmpty() || !authHeader.startsWith("Bearer ")) {
                     filterChain.doFilter(request, response);
-                    log.error("Null, empty or wrong auth header!");
                     return;
                 }
 
                 DecodedJWT decodedToken;
                 try {
-                    decodedToken = tokenVerification.verify(authHeader);
+                    decodedToken = tokenVerification.verify(authHeader.split(" ")[1]);
                 } catch (Exception e) {
                     filterChain.doFilter(request, response);
-                    log.error(e.getMessage());
                     return;
                 }
                 
