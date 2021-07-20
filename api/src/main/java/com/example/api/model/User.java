@@ -3,13 +3,8 @@ package com.example.api.model;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,16 +14,30 @@ import lombok.Data;
 @Entity
 @Table(name = "application_users")
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @NotBlank(message = "Field 'user_id' cannot be null.")
     private Long id;
+
+    @NotBlank(message = "Field 'login' cannot be null.")
+    @Size(min = 5, max = 25, message = "Field 'login' shouldn't be lesser than 5 and greater than 25 signs.")
     private String login;
+
+    @NotBlank(message = "Field 'password' cannot be null.")
+    @Size(min = 5, max = 55, message = "Field 'password' shouldn't be lesser than 5 and greater than 55 signs.")
     private String password;
+
+    @Email
+    @Column(name = "email", columnDefinition = "VARCHAR(255)")
     private String email;
+
+    @NotBlank(message = "Field 'email_confirmed' cannot be null.")
     private boolean emailConfirmed;
+
+    @NotBlank(message = "Field 'blocked' cannot be null.")
     private boolean blocked;
+
+    @NotBlank(message = "Field 'role' cannot be null.")
     private UserRole role;
 
     @OneToMany
