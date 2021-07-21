@@ -28,7 +28,7 @@ public class EmailVerificationController {
             service.verifyUserEmail(token);
             return ResponseEntity.ok("Your account is now active!");
         } catch (InvalidEmailTokenException e) {
-            return ResponseEntity.badRequest().body("Oos! Something went wrong!");
+            return ResponseEntity.badRequest().body("Oops! Something went wrong!");
         }
     }
     
