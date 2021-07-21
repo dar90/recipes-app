@@ -9,6 +9,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.api.dto.LoginForm;
 import com.example.api.dto.RegistrationForm;
+import com.example.api.dto.UserProfile;
 import com.example.api.model.User;
 import com.example.api.model.UserRole;
 import com.example.api.repository.UserRepository;
@@ -17,6 +18,7 @@ import org.springframework.mail.MailException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -91,5 +93,15 @@ public class UserService {
             return Optional.empty();
         }
     } 
+
+    public UserProfile userProfile() {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        currentUser = repository.getById(currentUser.getId()); 
+        UserProfile profile = new UserProfile(currentUser.getLogin(), 
+                                            currentUser.getEmail(), 
+                                            currentUser.getRecipes(), 
+                                            currentUser.getOpinions());
+        return profile;
+    }
 
 }

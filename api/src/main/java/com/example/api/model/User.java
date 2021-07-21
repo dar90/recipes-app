@@ -5,6 +5,17 @@ import java.util.Collections;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +45,9 @@ public class User implements UserDetails {
 
     @Email
     @Column(name = "email", columnDefinition = "VARCHAR(255)")
+    @JsonIgnore
+    private String password;
+    @JsonIgnore
     private String email;
 
     @NotBlank(message = "Field 'email_confirmed' cannot be null.")
@@ -46,9 +60,11 @@ public class User implements UserDetails {
     private UserRole role;
 
     @OneToMany
+    @JsonIgnoreProperties("author")
     private List<Recipe> recipes;
 
     @OneToMany(mappedBy = "author")
+    @JsonIgnoreProperties("author")
     private List<Opinion> opinions;
 
     @Override

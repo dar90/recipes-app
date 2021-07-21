@@ -3,6 +3,9 @@ package com.example.api.model;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
@@ -25,9 +28,11 @@ public class Opinion {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("opinions")
     private User author;
 
     @ManyToOne
     @JoinColumn(name = "recipe_id")
+    @JsonIgnoreProperties("opinions")
     private Recipe recipe;
 }
