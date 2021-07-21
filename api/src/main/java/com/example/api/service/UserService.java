@@ -3,6 +3,7 @@ package com.example.api.service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 import com.auth0.jwt.JWT;
@@ -102,6 +103,52 @@ public class UserService {
                                             currentUser.getRecipes(), 
                                             currentUser.getOpinions());
         return profile;
+    }
+
+    public Optional<User> getUser(Long id) {
+        return repository.findById(id).or(Optional::empty);
+    }
+
+    public Optional<User> patchUser(Long id, Map<String, Object> updates) {
+        Optional<User> optionalUser = repository.findById(id);
+
+        if(optionalUser.isEmpty())
+            return Optional.empty();
+
+        User user = optionalUser.get();
+        
+        if(updates.containsKey("blocked")) 
+            if(updates.get("blocked") instanceof Boolean blocked)
+                user.setBlocked(blocked);
+
+        if(updates.containsKey("role"))
+            if(updates.get("role") instanceof String roleName) {
+                try {
+                    user.setRole(UserRole.valueOf(roleName));
+                } catch (IllegalArgumentException e) {
+                    log.error("Wrong role name");
+                }
+            }
+                
+        if(updates.containsKey("login"))
+            if(updates.get("login") instanceof String login)
+                user.setLogin(login);
+
+        if(updates.containsKey("emailConfirmed"))
+            if(updates.get("emailConfirmed") instanceof Boolean emailConfirmed)
+                user.setEmailConfirmed(emailConfirmed);
+        
+        user = repository.save(user);
+        return Optional.of(user);
+    }
+
+    public Optional<User> putUser(User user) {
+        Optional<User> optionalUser = repository.findById(user.getId());
+
+        if(optionalUser.isEmpty())
+            return Optional.empty();
+
+        return Optional.of(repository.save(user));
     }
 
 }

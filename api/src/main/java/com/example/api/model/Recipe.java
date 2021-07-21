@@ -40,7 +40,7 @@ public class Recipe {
     @NotNull(message = "Field 'difficulty' cannot be null.")
     private RecipeDifficulty difficulty;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "recipe")
     @JsonIgnoreProperties("recipe")
     private List<Opinion> opinions;
 

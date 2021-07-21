@@ -59,7 +59,7 @@ public class User implements UserDetails {
     @NotBlank(message = "Field 'role' cannot be null.")
     private UserRole role;
 
-    @OneToMany
+    @OneToMany(mappedBy = "author")
     @JsonIgnoreProperties("author")
     private List<Recipe> recipes;
 
@@ -67,36 +67,43 @@ public class User implements UserDetails {
     @JsonIgnoreProperties("author")
     private List<Opinion> opinions;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(role.toString()));
     }
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return password;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return login;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return !blocked;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return emailConfirmed;
