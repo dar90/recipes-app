@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotBlank(message = "Field 'user_id' cannot be null.")
+    @Column(name = "user_id")
     private Long id;
 
     @NotBlank(message = "Field 'login' cannot be null.")
@@ -39,22 +39,20 @@ public class User implements UserDetails {
     private String login;
 
     @NotBlank(message = "Field 'password' cannot be null.")
-    @Size(min = 5, max = 55, message = "Field 'password' shouldn't be lesser than 5 and greater than 55 signs.")
     @JsonIgnore
     private String password;
 
     @Email
-    @Column(name = "email", columnDefinition = "VARCHAR(255)")
     @JsonIgnore
     private String email;
 
-    @NotBlank(message = "Field 'email_confirmed' cannot be null.")
+    @NotNull(message = "Field 'email_confirmed' cannot be null.")
     private boolean emailConfirmed;
 
-    @NotBlank(message = "Field 'blocked' cannot be null.")
+    @NotNull(message = "Field 'blocked' cannot be null.")
     private boolean blocked;
 
-    @NotBlank(message = "Field 'role' cannot be null.")
+    @NotNull(message = "Field 'role' cannot be null.")
     private UserRole role;
 
     @OneToMany(mappedBy = "author")
