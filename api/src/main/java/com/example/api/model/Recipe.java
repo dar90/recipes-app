@@ -8,8 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Data
 @Entity
 public class Recipe {
@@ -41,12 +39,10 @@ public class Recipe {
     private RecipeDifficulty difficulty;
 
     @OneToMany(mappedBy = "recipe")
-    @JsonIgnoreProperties("recipe")
     private List<Opinion> opinions;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties("recipes")
     private User author;
 
     @ManyToMany(targetEntity = Ingredient.class)
