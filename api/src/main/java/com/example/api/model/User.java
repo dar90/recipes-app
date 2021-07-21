@@ -3,7 +3,6 @@ package com.example.api.model;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import javax.persistence.*;
 import javax.validation.constraints.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,12 +40,11 @@ public class User implements UserDetails {
 
     @NotBlank(message = "Field 'password' cannot be null.")
     @Size(min = 5, max = 55, message = "Field 'password' shouldn't be lesser than 5 and greater than 55 signs.")
+    @JsonIgnore
     private String password;
 
     @Email
     @Column(name = "email", columnDefinition = "VARCHAR(255)")
-    @JsonIgnore
-    private String password;
     @JsonIgnore
     private String email;
 
