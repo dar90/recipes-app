@@ -36,9 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/user/register", "/api/user/login").permitAll()
-                .antMatchers("/api/user/update/*").hasAuthority("ADMIN")
-                .antMatchers("/api/user/**").hasAnyAuthority("USER", "MODERATOR", "ADMIN")
+                // .antMatchers("/api/user/register", "/api/user/login").permitAll()
+                // .antMatchers("/api/user/update/*").hasAuthority("ADMIN")
+                // .antMatchers("/api/user/**").hasAnyAuthority("USER", "MODERATOR", "ADMIN")
                 .antMatchers("/", "/**").permitAll()
             .and()
             .cors().disable()
