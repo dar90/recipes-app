@@ -3,6 +3,7 @@ package com.example.api.service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.api.dto.LoginForm;
 import com.example.api.dto.RegistrationForm;
+import com.example.api.dto.UpdateUserDTO;
 import com.example.api.dto.UserProfile;
 import com.example.api.model.User;
 import com.example.api.model.UserRole;
@@ -109,6 +111,10 @@ public class UserService {
         return repository.findById(id).or(Optional::empty);
     }
 
+    public List<User> allUsers() {
+        return repository.findAll();
+    }
+
     public Optional<User> patchUser(Long id, Map<String, Object> updates) {
         Optional<User> optionalUser = repository.findById(id);
 
@@ -131,7 +137,7 @@ public class UserService {
             }
                 
         if(updates.containsKey("login"))
-            if(updates.get("login") instanceof String login)
+            if(updates.get("login") instanceof String login && login.length() >= 5 && login.length() <= 25)
                 user.setLogin(login);
 
         if(updates.containsKey("emailConfirmed"))
@@ -142,13 +148,19 @@ public class UserService {
         return Optional.of(user);
     }
 
-    public Optional<User> putUser(User user) {
-        Optional<User> optionalUser = repository.findById(user.getId());
+    public Optional<User> putUser(UpdateUserDTO userDTO) {
+        Optional<User> optionalUser = repository.findById(userDTO.id());
 
         if(optionalUser.isEmpty())
             return Optional.empty();
 
-        return Optional.of(repository.save(user));
+        User user = optionalUser.get();
+        user.setBlocked(userDTO.blocked());
+        user.setRole(userDTO.role());
+        user.setLogin(userDTO.login());
+        user = repository.save(user);
+
+        return Optional.of(user);
     }
 
 }

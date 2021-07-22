@@ -4,6 +4,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,15 +37,18 @@ public class User implements UserDetails {
     private Long id;
 
     @NotBlank(message = "Field 'login' cannot be null.")
-    @Size(min = 5, max = 25, message = "Field 'login' shouldn't be lesser than 5 and greater than 25 signs.")
+    @Length(min = 5, max = 25, message = "Field 'login' shouldn't be lesser than 5 and greater than 25 signs.")
     private String login;
 
+    @JsonIgnore
     @NotBlank(message = "Field 'password' cannot be null.")
     private String password;
 
+    @JsonIgnore
     @Email
     private String email;
 
+    @JsonIgnore
     @NotNull(message = "Field 'email_confirmed' cannot be null.")
     private boolean emailConfirmed;
 
@@ -51,41 +59,50 @@ public class User implements UserDetails {
     private UserRole role;
 
     @OneToMany(mappedBy = "author")
+    @JsonIgnoreProperties({"author", "opinions", "ingredients", "categories", "description"})
     private List<Recipe> recipes;
 
     @OneToMany(mappedBy = "author")
+    @JsonIgnoreProperties({"author"})
     private List<Opinion> opinions;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(role.toString()));
     }
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return password;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return login;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return !blocked;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return emailConfirmed;

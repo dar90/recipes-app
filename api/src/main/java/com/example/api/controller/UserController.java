@@ -1,12 +1,14 @@
 package com.example.api.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import com.example.api.dto.LoginForm;
 import com.example.api.dto.RegistrationForm;
+import com.example.api.dto.UpdateUserDTO;
 import com.example.api.dto.UserProfile;
 import com.example.api.model.User;
 import com.example.api.service.UserService;
@@ -64,14 +66,19 @@ public class UserController {
         return ResponseEntity.of(service.getUser(id));
     }
 
-    @PatchMapping("/update/{id}")
+    @GetMapping
+    public ResponseEntity<List<User>> allUsers() {
+        return ResponseEntity.ok(service.allUsers());
+    }
+
+    @PatchMapping("/{id}")
     public ResponseEntity<User> patchUser(@PathVariable("id") Long id, @RequestBody Map<String, Object> updates) {
         return ResponseEntity.of(service.patchUser(id, updates));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<User> putUser(@RequestBody User user) {
-        return ResponseEntity.of(service.putUser(user));
+    @PutMapping
+    public ResponseEntity<User> putUser(@Valid @RequestBody UpdateUserDTO userDto) {
+        return ResponseEntity.of(service.putUser(userDto));
     }
 
 }
