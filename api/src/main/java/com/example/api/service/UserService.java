@@ -95,16 +95,15 @@ public class UserService {
             log.error("Login failed: " + loginForm.login());
             return Optional.empty();
         }
-    } 
+    }
 
     public UserProfile userProfile() {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        currentUser = repository.getById(currentUser.getId()); 
-        UserProfile profile = new UserProfile(currentUser.getLogin(), 
-                                            currentUser.getEmail(), 
-                                            currentUser.getRecipes(), 
+        currentUser = repository.getById(currentUser.getId());
+        return new UserProfile(currentUser.getLogin(),
+                                            currentUser.getEmail(),
+                                            currentUser.getRecipes(),
                                             currentUser.getOpinions());
-        return profile;
     }
 
     public Optional<User> getUser(Long id) {

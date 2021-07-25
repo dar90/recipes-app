@@ -23,7 +23,7 @@ public class EmailVerificationController {
     }
 
     @GetMapping("/{token}")
-    public ResponseEntity<String> verifyEmail(@PathVariable("token") UUID token) {
+    public ResponseEntity<String> verifyEmail(@PathVariable UUID token) {
         try {
             service.verifyUserEmail(token);
             return ResponseEntity.ok("Your account is now active!");

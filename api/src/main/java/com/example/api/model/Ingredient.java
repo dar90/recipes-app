@@ -13,14 +13,15 @@ import org.hibernate.validator.constraints.Length;
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     Long id;
 
     @NotBlank(message = "Field 'name' cannot be null.")
     @Length(max = 255, message = "Field 'name' shouldn't be greater than 255 signs.")
     private String name;
 
-    @NotBlank(message = "Field 'measure_unit' cannot be null.")
-    @Length(max = 100, message = "Field 'measure_unit' shouldn't be greater than 100 signs.")
+    @NotBlank(message = "Field 'measureUnit' cannot be null.")
+    @Length(max = 100, message = "Field 'measureUnit' shouldn't be greater than 100 signs.")
     private String measureUnit;
 
     @JsonIgnoreProperties({"ingredients", "opinions", "author", "categories", "description"})

@@ -52,7 +52,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginForm loginForm) {
         return service.generateAccessToken(loginForm)
-                        .<ResponseEntity<String>>map(ResponseEntity::ok)
+                        .map(ResponseEntity::ok)
                         .orElse(ResponseEntity.badRequest().body(""));
     }
 
@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
         return ResponseEntity.of(service.getUser(id));
     }
 
