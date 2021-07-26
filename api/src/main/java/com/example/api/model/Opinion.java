@@ -12,6 +12,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Opinion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

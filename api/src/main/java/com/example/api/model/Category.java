@@ -13,6 +13,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
     @Id
     @NotBlank(message = "Field 'name' cannot be null.")
