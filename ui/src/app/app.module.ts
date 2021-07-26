@@ -22,6 +22,9 @@ import {MatCardModule} from "@angular/material/card";
 import {AuthService} from "./AuthService";
 import {HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {RecipeCardComponent} from "./recipe-card/recipe-card.component";
+import {UserStatsCardComponent} from "./user-stats-card/user-stats-card.component";
+import {OpinionCardComponent} from "./opinion-card/opinion-card.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     HomepageComponent,
     RegistrationFormComponent,
     ProfileComponent,
-    NavbarComponent
+    NavbarComponent,
+    RecipeCardComponent,
+    UserStatsCardComponent,
+    OpinionCardComponent
   ],
   imports: [
     BrowserModule,
