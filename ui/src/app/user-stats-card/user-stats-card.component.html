@@ -1,0 +1,23 @@
+<div class="user-stats-card-container">
+  <mat-card class="stats-mat-card">
+    <img class="profile-img-placeholder" src="assets/img/profile.png">
+    <mat-card-content>
+      <div class="profile-stats">
+        <div>
+          <h2>Login:</h2>
+          <h3>{{user?.name}}</h3>
+          <h2>Email:</h2>
+          <h3>{{user?.email}}</h3>
+        </div>
+        <div>
+          <h2>Liczba dodanych przepisów:</h2>
+          <h3>{{user?.recipes?.length}}</h3>
+        </div>
+        <div>
+          <h2>Liczba napisanych opinii:</h2>
+          <h3>{{user?.opinions?.length}}</h3>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

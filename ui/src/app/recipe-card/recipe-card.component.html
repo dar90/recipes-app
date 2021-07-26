@@ -1,0 +1,29 @@
+<div class="recipe-card-container">
+  <mat-card>
+    <mat-card-title>{{recipe.title}}</mat-card-title>
+      <div class="recipe-img-container">
+        <img src="{{recipe.image}}">
+      </div>
+    <mat-card-content class="recipe-card-content">
+      <div>
+        <mat-icon>star</mat-icon> {{avgGrade}}
+      </div>
+      <div>
+        <mat-icon>question_answer</mat-icon> {{recipe.opinions.length}}
+      </div>
+      <div>
+        <mat-icon>schedule</mat-icon> {{recipe.time}}
+      </div>
+      <div>
+        <mat-icon>info</mat-icon> {{difficulty}}
+      </div>
+      <div>
+        <mat-icon>restaurant</mat-icon> {{recipe.portions}}
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="recipe-card-actions">
+      <button mat-stroked-button color="accent">Czytaj</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
