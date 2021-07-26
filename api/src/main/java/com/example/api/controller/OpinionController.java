@@ -29,7 +29,7 @@ public class OpinionController {
     }
 
     @PostMapping
-    public ResponseEntity<Opinion> addOpinion(@RequestBody Opinion opinion) {
+    public ResponseEntity<Opinion> addOpinion(@Valid @RequestBody Opinion opinion) {
         return ResponseEntity.ok(service.addOpinion(opinion));
     }
 
@@ -39,7 +39,8 @@ public class OpinionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Opinion> deleteOpinion(@PathVariable Long id) {
-        return ResponseEntity.of(service.deleteOpinion(id));
+    public ResponseEntity<Void> deleteOpinion(@PathVariable Long id) {
+        service.deleteOpinion(id);
+        return ResponseEntity.ok().build();
     }
 }

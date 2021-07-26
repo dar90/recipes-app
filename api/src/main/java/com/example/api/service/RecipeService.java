@@ -46,8 +46,7 @@ public class RecipeService {
         return Optional.of(recipe);
     }
 
-    public Optional<Recipe> deleteRecipe(Long id) {
+    public void deleteRecipe(Long id) {
         repository.deleteById(id);
-        return Optional.empty();
     }
 }

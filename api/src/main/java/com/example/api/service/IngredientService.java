@@ -43,8 +43,7 @@ public class IngredientService {
         return Optional.of(ingredient);
     }
 
-    public Optional<Ingredient> deleteIngredient(Long id) {
+    public void deleteIngredient(Long id) {
         repository.deleteById(id);
-        return Optional.empty();
     }
 }

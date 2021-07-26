@@ -30,7 +30,7 @@ public class IngredientController {
     }
 
     @PostMapping
-    public ResponseEntity<Ingredient> addIngredient(@RequestBody Ingredient ingredient) {
+    public ResponseEntity<Ingredient> addIngredient(@Valid @RequestBody Ingredient ingredient) {
         return ResponseEntity.ok(service.addIngrednient(ingredient));
     }
 
@@ -40,8 +40,8 @@ public class IngredientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Ingredient> deleteIngredient(@PathVariable Long id) {
-        return ResponseEntity.of(service.deleteIngredient(id));
+    public ResponseEntity<Void> deleteIngredient(@PathVariable Long id) {
+        service.deleteIngredient(id);
+        return ResponseEntity.ok().build();
     }
-
 }

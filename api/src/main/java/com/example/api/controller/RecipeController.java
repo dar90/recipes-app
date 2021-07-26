@@ -29,7 +29,7 @@ public class RecipeController {
     }
 
     @PostMapping
-    public ResponseEntity<Recipe> addRecipe(@RequestBody Recipe recipe) {
+    public ResponseEntity<Recipe> addRecipe(@Valid @RequestBody Recipe recipe) {
         return ResponseEntity.ok(service.addRecipe(recipe));
     }
 
@@ -39,8 +39,9 @@ public class RecipeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Recipe> deleteRecipe(@PathVariable Long id) {
-        return ResponseEntity.of(service.deleteRecipe(id));
+    public ResponseEntity<Void> deleteRecipe(@PathVariable Long id) {
+        service.deleteRecipe(id);
+        return ResponseEntity.ok().build();
     }
 
 }

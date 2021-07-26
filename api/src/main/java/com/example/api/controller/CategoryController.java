@@ -29,7 +29,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+    public ResponseEntity<Category> addCategory(@Valid @RequestBody Category category) {
         return ResponseEntity.ok(service.addCategory(category));
     }
 
@@ -39,7 +39,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<Category> deleteCategory(@PathVariable String name) {
-        return ResponseEntity.of(service.deleteCategory(name));
+    public ResponseEntity<Void> deleteCategory(@PathVariable String name) {
+        service.deleteCategory(name);
+        return ResponseEntity.ok().build();
     }
 }

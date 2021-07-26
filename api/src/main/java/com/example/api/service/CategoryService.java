@@ -43,8 +43,7 @@ public class CategoryService {
         return Optional.of(category);
     }
 
-    public Optional<Category> deleteCategory(String name) {
+    public void deleteCategory(String name) {
         repository.deleteById(name);
-        return Optional.empty();
     }
 }

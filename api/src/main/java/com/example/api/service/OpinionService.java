@@ -43,8 +43,7 @@ public class OpinionService {
         return Optional.of(opinion);
     }
 
-    public Optional<Opinion> deleteOpinion(Long id) {
+    public void deleteOpinion(Long id) {
         repository.deleteById(id);
-        return Optional.empty();
     }
 }
