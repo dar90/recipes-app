@@ -8,6 +8,7 @@ import com.example.api.repository.UserRepository;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -39,9 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                // .antMatchers("/api/user/register", "/api/user/login").permitAll()
-                // .antMatchers("/api/user/update/*").hasAuthority("ADMIN")
-                // .antMatchers("/api/user/**").hasAnyAuthority("USER", "MODERATOR", "ADMIN")
+                .antMatchers("/api/user/register", "/api/user/login").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/user/*").hasAuthority("ADMIN") 
+                .antMatchers(HttpMethod.POST, "/api/user/*").hasAuthority("ADMIN")
+                .antMatchers("/api/user/**").hasAnyAuthority("USER", "MODERATOR", "ADMIN")
                 .antMatchers("/", "/**").permitAll()
             .and()
             .cors()
