@@ -5,6 +5,7 @@ import {LoginFormComponent} from "./login-form/login-form.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
 import {RecipeComponent} from "./recipe/recipe.component";
+import {RegistrationSuccessComponent} from "./registration-success/registration-success.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegistrationFormComponent
+  },
+  {
+    path: 'register-success',
+    component: RegistrationSuccessComponent
   },
   {
     path: 'recipe/:id',

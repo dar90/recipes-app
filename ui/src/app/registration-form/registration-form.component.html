@@ -1,1 +1,83 @@
-<p>registration-form works!</p>
+<div class="centered-container registration-form-container">
+
+  <mat-card class="register-form-card">
+
+    <mat-card-title>
+      Rejestracja
+    </mat-card-title>
+
+    <mat-card-content>
+
+      <form class="register-form" [formGroup]="registerForm" (ngSubmit)="register()">
+
+        <mat-form-field>
+
+          <mat-label>Login*</mat-label>
+          <input matInput formControlName="login">
+
+          <mat-error *ngIf="login?.errors?.required">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="login?.errors?.minlength ||
+                            login?.errors?.maxlength">
+            Nazwa użytkownika powinna zawierać od 5 do 25 znaków
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field>
+
+          <mat-label>Hasło*</mat-label>
+          <input matInput formControlName="password" type="password">
+
+          <mat-error *ngIf="password?.errors?.required">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="password?.errors?.minlength ||
+                            password?.errors?.maxlength">
+            Hasło powinno zawierać od 5 do 55 znaków
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field>
+
+          <mat-label>Powtórzone hasło*</mat-label>
+          <input matInput formControlName="repeatedPassword" type="password">
+
+          <mat-error *ngIf="repeatedPassword?.errors?.required">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="(repeatedPassword?.errors?.minlength ||
+                            repeatedPassword?.errors?.maxlength) &&
+                             !repeatedPassword?.errors?.equalPasswords">
+            Hasło powinno zawierać od 5 do 55 znaków
+          </mat-error>
+          <mat-error *ngIf="repeatedPassword?.errors?.equalPasswords">
+            Podane hasła nie są takie same
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field>
+
+          <mat-label>Email*</mat-label>
+          <input matInput formControlName="email">
+
+          <mat-error *ngIf="email?.errors?.required">
+            To pole jest wymagane
+          </mat-error>
+
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">
+          Załóż konto
+        </button>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

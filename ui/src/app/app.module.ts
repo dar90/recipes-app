@@ -27,6 +27,7 @@ import {UserStatsCardComponent} from "./user-stats-card/user-stats-card.componen
 import {OpinionCardComponent} from "./opinion-card/opinion-card.component";
 import {AuthInterceptor} from "./AuthInterceptor";
 import { RecipeComponent } from './recipe/recipe.component';
+import {RegistrationSuccessComponent} from "./registration-success/registration-success.component";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { RecipeComponent } from './recipe/recipe.component';
     RecipeCardComponent,
     UserStatsCardComponent,
     OpinionCardComponent,
-    RecipeComponent
+    RecipeComponent,
+    RegistrationSuccessComponent
   ],
   imports: [
     BrowserModule,
