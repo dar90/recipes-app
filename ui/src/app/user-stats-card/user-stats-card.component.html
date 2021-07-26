@@ -1,6 +1,6 @@
 <div class="user-stats-card-container">
   <mat-card class="stats-mat-card">
-    <img class="profile-img-placeholder" src="assets/img/profile.png">
+    <img src="assets/img/profile.png">
     <mat-card-content>
       <div class="profile-stats">
         <div>
@@ -16,6 +16,9 @@
         <div>
           <h2>Liczba napisanych opinii:</h2>
           <h3>{{user?.opinions?.length}}</h3>
+        </div>
+        <div>
+          <button mat-stroked-button color="accent">Zmień dane</button>
         </div>
       </div>
     </mat-card-content>

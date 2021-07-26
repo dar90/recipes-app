@@ -1,11 +1,13 @@
 <div class="opinion-card-container">
   <mat-card>
-    <mat-card-header><h2>Komentarz</h2></mat-card-header>
+    <mat-card-header>
+      <h2>Komentarz</h2>
+    </mat-card-header>
     <mat-card-content>
       {{opinion?.content}}
     </mat-card-content>
     <mat-card-actions>
-      <button mat-stroked-button color="accent">Przejdź do przepisu</button>
+      <button mat-stroked-button color="accent" routerLink="/recipe/{{opinion?.recipe?.id}}">Przejdź do przepisu</button>
     </mat-card-actions>
   </mat-card>
 </div>

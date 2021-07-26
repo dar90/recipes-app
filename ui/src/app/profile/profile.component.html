@@ -1,1 +1,31 @@
-<p>profile works!</p>
+<div class="profile-container">
+
+  <div class="user-stats">
+    <app-user-stats-card [user]="user"></app-user-stats-card>
+  </div>
+
+  <div class="latest-activity">
+
+    <div class="latest-activity-header">
+      <mat-card>
+        <mat-card-title>
+          Ostatnia aktywność
+        </mat-card-title>
+      </mat-card>
+    </div>
+
+    <div class="latest-recipes">
+      <ng-container *ngFor="let recipe of latestRecipes">
+        <app-recipe-card [recipe]="recipe"></app-recipe-card>
+      </ng-container>
+    </div>
+
+    <div class="latest-opinions">
+      <ng-container *ngFor="let opinion of latestOpinions">
+        <app-opinion-card [opinion]="opinion"></app-opinion-card>
+      </ng-container>
+    </div>
+
+  </div>
+
+</div>

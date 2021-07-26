@@ -20,11 +20,13 @@ import {MatInputModule} from "@angular/material/input";
 import { NavbarComponent } from './navbar/navbar.component';
 import {MatCardModule} from "@angular/material/card";
 import {AuthService} from "./AuthService";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {RecipeCardComponent} from "./recipe-card/recipe-card.component";
 import {UserStatsCardComponent} from "./user-stats-card/user-stats-card.component";
 import {OpinionCardComponent} from "./opinion-card/opinion-card.component";
+import {AuthInterceptor} from "./AuthInterceptor";
+import { RecipeComponent } from './recipe/recipe.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import {OpinionCardComponent} from "./opinion-card/opinion-card.component";
     NavbarComponent,
     RecipeCardComponent,
     UserStatsCardComponent,
-    OpinionCardComponent
+    OpinionCardComponent,
+    RecipeComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,12 @@ import {OpinionCardComponent} from "./opinion-card/opinion-card.component";
     MatSnackBarModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

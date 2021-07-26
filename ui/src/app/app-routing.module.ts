@@ -4,6 +4,7 @@ import {HomepageComponent} from "./homepage/homepage.component";
 import {LoginFormComponent} from "./login-form/login-form.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
+import {RecipeComponent} from "./recipe/recipe.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegistrationFormComponent
+  },
+  {
+    path: 'recipe/:id',
+    component: RecipeComponent
   }
 ];
 
