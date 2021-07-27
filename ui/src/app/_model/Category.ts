@@ -4,5 +4,5 @@ export interface Category {
   name: string,
   description: string,
   image: string,
-  recipes: Recipe[]
+  recipes: Recipe[] | null | undefined
 }

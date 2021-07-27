@@ -27,7 +27,7 @@ export class CategoryComponent implements OnInit {
   }
 
   get recipes() {
-    return this.category?.recipes;
+    return this.category?.recipes ?? [];
   }
 
 }

@@ -17,4 +17,8 @@ export class CategoryCardComponent implements OnInit {
       this.category.image = 'assets/img/img_placeholder.png'
   }
 
+  get recipes() {
+    return this.category?.recipes ?? [];
+  }
+
 }
