@@ -1,1 +1,11 @@
-<p>homepage works!</p>
+<div class="homepage-container">
+
+  <h1 class="mat-display-1 homepage-header">Najnowsze przepisy</h1>
+
+  <div class="latest-recipes">
+    <ng-container *ngFor="let recipe of latestRecipes">
+      <app-recipe-card [recipe]="recipe"></app-recipe-card>
+    </ng-container>
+  </div>
+
+</div>

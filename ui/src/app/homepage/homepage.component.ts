@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Recipe} from "../_model/Recipe";
+import {HttpClient} from "@angular/common/http";
+import {AppSettings} from "../AppSettings";
 
 @Component({
   selector: 'app-homepage',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  latestRecipes: Recipe[];
+
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
+    this.httpClient.get<Recipe[]>(AppSettings.API_URL + '/recipe').subscribe(
+      response => {
+        this.latestRecipes = response.sort((a, b) => b.id - a.id)
+                                      .filter((recipe, index) => index < 8)
+      }
+    );
   }
 
 }
