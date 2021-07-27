@@ -1,1 +1,5 @@
-<p>recipes-list works!</p>
+<div class="recipes-list-container">
+  <ng-container *ngFor="let recipe of recipesList">
+    <app-recipe-card [recipe]="recipe"></app-recipe-card>
+  </ng-container>
+</div>

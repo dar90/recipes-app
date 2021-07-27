@@ -2,11 +2,7 @@
 
   <h1 class="mat-display-1 homepage-header">Najnowsze przepisy</h1>
 
-  <div class="homepage-list">
-    <ng-container *ngFor="let recipe of latestRecipes">
-      <app-recipe-card [recipe]="recipe"></app-recipe-card>
-    </ng-container>
-  </div>
+  <app-recipes-list [recipesList]="latestRecipes"></app-recipes-list>
 
   <h1 class="mat-display-1 homepage-header">Kategorie</h1>
 
