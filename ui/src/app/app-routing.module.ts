@@ -6,6 +6,7 @@ import {ProfileComponent} from "./profile/profile.component";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
 import {RecipeComponent} from "./recipe/recipe.component";
 import {RegistrationSuccessComponent} from "./registration-success/registration-success.component";
+import {CategoryComponent} from "./category/category.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'recipe/:id',
     component: RecipeComponent
+  },
+  {
+    path: 'category/:name',
+    component: CategoryComponent
   }
 ];
 

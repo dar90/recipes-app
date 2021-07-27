@@ -28,6 +28,9 @@ import {OpinionCardComponent} from "./opinion-card/opinion-card.component";
 import {AuthInterceptor} from "./AuthInterceptor";
 import { RecipeComponent } from './recipe/recipe.component';
 import {RegistrationSuccessComponent} from "./registration-success/registration-success.component";
+import { CategoryCardComponent } from './category-card/category-card.component';
+import { RecipesListComponent } from './recipes-list/recipes-list.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import {RegistrationSuccessComponent} from "./registration-success/registration-
     UserStatsCardComponent,
     OpinionCardComponent,
     RecipeComponent,
-    RegistrationSuccessComponent
+    RegistrationSuccessComponent,
+    CategoryCardComponent,
+    RecipesListComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
