@@ -26,7 +26,7 @@ public class Category {
 
     private URL image;
 
-    @JsonIgnoreProperties({"categories", "author", "opinions", "ingredients", "description"})
+    @JsonIgnoreProperties({"categories", "author", "ingredients", "description"})
     @ManyToMany
     private List<Recipe> recipes;
 }
