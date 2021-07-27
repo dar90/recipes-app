@@ -25,7 +25,7 @@ export class HomepageComponent implements OnInit {
     );
 
     this.httpClient.get<Category[]>(AppSettings.API_URL + '/category').subscribe(
-      response => this.categories = response
+      response => this.categories = response.filter(category => category.recipes.length > 0)
     );
   }
 
