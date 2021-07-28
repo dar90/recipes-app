@@ -6,7 +6,6 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
@@ -15,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     @Column(name = "recipe_id")
     private Long id;
 

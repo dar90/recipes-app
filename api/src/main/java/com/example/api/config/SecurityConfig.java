@@ -8,6 +8,7 @@ import com.example.api.repository.UserRepository;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -40,7 +41,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/api/user/register", "/api/user/login").permitAll()
-                .antMatchers("/api/user/update/*").hasAuthority("ADMIN")
+                .antMatchers("/api/category", "/api/ingredient", "/api/opinion", "/api/recipe").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/*").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/user/*").hasAuthority("ADMIN") 
+                .antMatchers(HttpMethod.POST, "/api/user/*").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/category/*").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/category/*").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/category/*").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/category/*").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/ingredient/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.PUT, "/api/ingredient/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.POST, "/api/ingredient/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.DELETE, "/api/ingredient/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.GET, "/api/opinion/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.PUT, "/api/opinion/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.POST, "/api/opinion/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.DELETE, "/api/opinion/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.GET, "/api/recipe/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.PUT, "/api/recipe/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.POST, "/api/recipe/*").hasAnyAuthority("ADMIN", "MODERATOR")
+                .antMatchers(HttpMethod.DELETE, "/api/recipe/*").hasAnyAuthority("ADMIN", "MODERATOR")
                 .antMatchers("/api/user/**").hasAnyAuthority("USER", "MODERATOR", "ADMIN")
                 .antMatchers("/", "/**").permitAll()
             .and()
