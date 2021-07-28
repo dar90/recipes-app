@@ -13,6 +13,8 @@ export class RecipeCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if(this.recipe.image == null)
+      this.recipe.image = 'assets/img/img_placeholder.png'
   }
 
   get avgGrade(): number {
