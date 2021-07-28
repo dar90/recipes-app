@@ -31,6 +31,9 @@ import {RegistrationSuccessComponent} from "./registration-success/registration-
 import { CategoryCardComponent } from './category-card/category-card.component';
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { CategoryComponent } from './category/category.component';
+import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { CategoryComponent } from './category/category.component';
     RegistrationSuccessComponent,
     CategoryCardComponent,
     RecipesListComponent,
-    CategoryComponent
+    CategoryComponent,
+    CreateRecipeComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +68,9 @@ import { CategoryComponent } from './category/category.component';
     MatInputModule,
     MatCardModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatStepperModule,
+    MatRadioModule
   ],
   providers: [
     AuthService,

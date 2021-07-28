@@ -1,6 +1,7 @@
 <mat-toolbar class="navbar-container" color="primary">
     <div>
       <a mat-button routerLink="">Strona główna</a>
+      <a mat-button *ngIf="role !== 'NOT_LOGGED_IN'" routerLink="/create-recipe">Dodaj przepis</a>
     </div>
     <div>
       <a mat-button routerLink="/login" *ngIf="role === 'NOT_LOGGED_IN'">Logowanie</a>

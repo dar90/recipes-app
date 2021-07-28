@@ -1,9 +1,9 @@
 import {Recipe} from "./Recipe";
 
 export interface Ingredient {
-  id: number,
+  id: number | null | undefined,
   name: string,
   measureUnit: string,
-  recipe: Recipe,
+  recipe: Recipe | null | undefined,
   amount: number
 }

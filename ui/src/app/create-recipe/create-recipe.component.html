@@ -1,0 +1,122 @@
+<div class="create-recipe-container">
+  <mat-stepper [linear]="false">
+
+    <mat-step [stepControl]="firstForm">
+
+      <form class="create-recipe-step-form" [formGroup]="firstForm">
+
+        <ng-template matStepLabel>Podstawowe informacje</ng-template>
+
+        <mat-form-field>
+          <mat-label>Nazwa przepisu</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Czas przygotowania</mat-label>
+          <input matInput formControlName="time" type="number">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Liczba porcji</mat-label>
+          <input matInput formControlName="portions" type="number">
+        </mat-form-field>
+
+          <mat-label>Poziom trudności</mat-label>
+          <mat-radio-group formControlName="difficulty">
+            <mat-radio-button value="EASY">Łatwy</mat-radio-button> <br>
+            <mat-radio-button value="MEDIUM">Średni</mat-radio-button> <br>
+            <mat-radio-button value="HARD">Trudny</mat-radio-button>
+          </mat-radio-group>
+
+        <div class="mat-stepper-buttons-container">
+          <button class="mat-stepper-button" mat-raised-button matStepperNext color="primary">
+            Dalej
+          </button>
+        </div>
+
+      </form>
+
+    </mat-step>
+
+    <mat-step>
+
+      <ng-template matStepLabel>Składniki</ng-template>
+
+      <div>
+        <mat-list>
+          <mat-list-item *ngFor="let ingredient of recipeIngredients">
+            <div>{{ingredient.name}} - {{ingredient.amount}} {{ingredient.measureUnit}}</div>
+            <div><button mat-button (click)="removeIngredient(ingredient)"><mat-icon>remove</mat-icon></button></div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <form class="create-recipe-step-form" [formGroup]="secondForm" (ngSubmit)="addIngredient()">
+
+        <mat-form-field>
+          <mat-label>Składnik</mat-label>
+          <input matInput formControlName="ingredient">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Ilość</mat-label>
+          <input matInput formControlName="amount" type="number">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Miara</mat-label>
+          <input matInput formControlName="measureUnit">
+        </mat-form-field>
+
+        <button class="add-ingredient-button" mat-raised-button color="primary" type="submit">
+          Dodaj składnik
+        </button>
+
+      </form>
+
+      <div class="mat-stepper-buttons-container">
+        <button class="mat-stepper-button" mat-raised-button matStepperPrevious color="primary">Wstecz</button>
+        <button class="mat-stepper-button" mat-raised-button matStepperNext color="primary">Dalej</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+
+      <ng-template matStepLabel>Opis, zdjęcie, kategorie</ng-template>
+
+      <form class="create-recipe-step-form" [formGroup]="thirdForm">
+
+        <mat-form-field>
+          <mat-label>Link do zdjęcia</mat-label>
+          <input matInput type="url" formControlName="image">
+        </mat-form-field>
+
+        <mat-label>Kategorie</mat-label>
+        <mat-selection-list class="categories-list">
+          <mat-list-option *ngFor="let category of allCategories">
+            {{category.name}}
+          </mat-list-option>
+        </mat-selection-list>
+
+        <mat-form-field>
+          <mat-label>Opis</mat-label>
+          <textarea class="recipe-description" matInput></textarea>
+        </mat-form-field>
+
+      </form>
+
+      <div class="mat-stepper-buttons-container">
+        <button class="mat-stepper-button" mat-raised-button matStepperPrevious color="primary">
+          Wstecz
+        </button>
+        <button mat-raised-button color="primary" class="mat-stepper-button">
+          Dodaj przepis
+        </button>
+      </div>
+
+    </mat-step>
+
+  </mat-stepper>
+</div>
