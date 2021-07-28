@@ -14,7 +14,6 @@ import org.hibernate.validator.constraints.Length;
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     Long id;
 
     @NotBlank(message = "Field 'name' cannot be null.")
