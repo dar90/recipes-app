@@ -10,24 +10,51 @@
         <mat-form-field>
           <mat-label>Nazwa przepisu</mat-label>
           <input matInput formControlName="title">
+
+          <mat-error *ngIf="title?.hasError('required')">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="title?.hasError('maxlength')">
+            Tytuł może zawierać maksymalnie 255 znaków
+          </mat-error>
+
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Czas przygotowania</mat-label>
           <input matInput formControlName="time" type="number">
+
+          <mat-error *ngIf="time?.hasError('required')">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="time?.hasError('min')">
+            Czas przygotowania powinien wynosić minimum 5 minut
+          </mat-error>
+
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Liczba porcji</mat-label>
           <input matInput formControlName="portions" type="number">
+
+          <mat-error *ngIf="portions?.hasError('required')">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="portions?.hasError('min') || portions?.hasError('max')">
+            Liczba porcji powinna wynosić od 1 do 100
+          </mat-error>
+
         </mat-form-field>
 
-          <mat-label>Poziom trudności</mat-label>
-          <mat-radio-group formControlName="difficulty">
-            <mat-radio-button value="EASY">Łatwy</mat-radio-button> <br>
-            <mat-radio-button value="MEDIUM">Średni</mat-radio-button> <br>
-            <mat-radio-button value="HARD">Trudny</mat-radio-button>
-          </mat-radio-group>
+        <mat-label>Poziom trudności</mat-label>
+        <mat-radio-group formControlName="difficulty">
+          <mat-radio-button value="EASY">Łatwy</mat-radio-button> <br>
+          <mat-radio-button value="MEDIUM">Średni</mat-radio-button> <br>
+          <mat-radio-button value="HARD">Trudny</mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="difficulty?.hasError('required')">
+          To pole jest wymagane
+        </mat-error>
 
         <div class="mat-stepper-buttons-container">
           <button class="mat-stepper-button" mat-raised-button matStepperNext color="primary">
@@ -39,7 +66,7 @@
 
     </mat-step>
 
-    <mat-step>
+    <mat-step [stepControl]="secondForm">
 
       <ng-template matStepLabel>Składniki</ng-template>
 
@@ -52,24 +79,52 @@
         </mat-list>
       </div>
 
-      <form class="create-recipe-step-form" [formGroup]="secondForm" (ngSubmit)="addIngredient()">
+      <form class="create-recipe-step-form"
+            [formGroup]="secondForm"
+            (ngSubmit)="addIngredient(formDirective)" #formDirective="ngForm">
 
         <mat-form-field>
           <mat-label>Składnik</mat-label>
           <input matInput formControlName="ingredient">
+
+          <mat-error *ngIf="ingredient?.hasError('required')">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="ingredient?.hasError('maxlength')">
+            Nazwa może zawierać maksymalnie 255 znaków
+          </mat-error>
+
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Ilość</mat-label>
           <input matInput formControlName="amount" type="number">
+
+          <mat-error *ngIf="amount?.hasError('required')">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="amount?.hasError('min')">
+            Ilość składnika powinna być większa lub równa 0.01
+          </mat-error>
+
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Miara</mat-label>
           <input matInput formControlName="measureUnit">
+
+          <mat-error *ngIf="measureUnit?.hasError('required')">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="measureUnit?.hasError('maxlength')">
+            Nazwa miary składnika nie może być dłuższa niż 100 znaków
+          </mat-error>
+
         </mat-form-field>
 
-        <button class="add-ingredient-button" mat-raised-button color="primary" type="submit">
+        <button class="add-ingredient-button" mat-raised-button
+                color="primary" type="submit"
+                [disabled]="!secondForm.valid">
           Dodaj składnik
         </button>
 
@@ -82,7 +137,7 @@
 
     </mat-step>
 
-    <mat-step>
+    <mat-step [stepControl]="thirdForm">
 
       <ng-template matStepLabel>Opis, zdjęcie, kategorie</ng-template>
 
@@ -91,18 +146,34 @@
         <mat-form-field>
           <mat-label>Link do zdjęcia</mat-label>
           <input matInput type="url" formControlName="image">
+
+          <mat-error *ngIf="image?.hasError('required')">
+            To pole jest wymagane
+          </mat-error>
+
         </mat-form-field>
 
         <mat-label>Kategorie</mat-label>
-        <mat-selection-list class="categories-list">
-          <mat-list-option *ngFor="let category of allCategories">
+        <mat-selection-list class="categories-list" formControlName="categories">
+          <mat-list-option *ngFor="let category of allCategories" value="{{category.name}}">
             {{category.name}}
           </mat-list-option>
         </mat-selection-list>
+        <mat-error *ngIf="categories?.hasError('required')">
+          To pole jest wymagane
+        </mat-error>
 
         <mat-form-field>
           <mat-label>Opis</mat-label>
-          <textarea class="recipe-description" matInput></textarea>
+          <textarea class="recipe-description" matInput formControlName="description"></textarea>
+
+          <mat-error *ngIf="description?.hasError('required')">
+            To pole jest wymagane
+          </mat-error>
+          <mat-error *ngIf="description?.hasError('minlength')">
+            Pole powinno zawierać co najmniej 20 znaków
+          </mat-error>
+
         </mat-form-field>
 
       </form>
@@ -111,7 +182,10 @@
         <button class="mat-stepper-button" mat-raised-button matStepperPrevious color="primary">
           Wstecz
         </button>
-        <button mat-raised-button color="primary" class="mat-stepper-button">
+        <button mat-raised-button color="primary"
+                class="mat-stepper-button"
+                [disabled]="!firstForm.valid || recipeIngredients.length < 1 || !thirdForm.valid"
+                (click)="createRecipe()">
           Dodaj przepis
         </button>
       </div>
