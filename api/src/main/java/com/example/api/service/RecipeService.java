@@ -3,17 +3,24 @@ package com.example.api.service;
 import java.util.List;
 import java.util.Optional;
 import com.example.api.dto.UpdateRecipeDTO;
+import com.example.api.model.Category;
 import com.example.api.model.Recipe;
+import com.example.api.model.User;
+import com.example.api.repository.CategoryRepository;
 import com.example.api.repository.RecipeRepository;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RecipeService {
     
     private final RecipeRepository repository;
+    private final CategoryRepository categoryRepository;
 
-    public RecipeService(RecipeRepository repository) {
+    public RecipeService(RecipeRepository repository, CategoryRepository categoryRepository) {
         this.repository = repository;
+        this.categoryRepository = categoryRepository;
     }
 
     public Optional<Recipe> getRecipe(Long id) {
@@ -25,7 +32,24 @@ public class RecipeService {
     }
 
     public Recipe addRecipe(Recipe recipe) {
-        return repository.save(recipe);
+        recipe.getIngredients().forEach(ingredient -> ingredient.setRecipe(recipe));
+
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        recipe.setAuthor(currentUser);
+        
+        List<Category> categories = recipe.getCategories()
+                                            .stream()
+                                            .<Optional<Category>>map(category -> categoryRepository.findById(category.getName()))
+                                            .filter(Optional::isPresent)
+                                            .<Category>map(Optional::get)
+                                            .toList();
+        recipe.setCategories(categories);
+        
+        Recipe recipeEntity = repository.save(recipe);
+        categories.forEach(category -> category.getRecipes().add(recipeEntity));
+        categoryRepository.saveAll(categories);
+
+        return recipeEntity;
     }
 
     public Optional<Recipe> putRecipe(UpdateRecipeDTO recipeDto) {
