@@ -46,7 +46,7 @@ public class EmailVerificationService {
 
     public void sendMail(User user) throws NullPointerException, MailException {
         EmailVerificationToken token = repository.findByUser(user).orElseThrow(NullPointerException::new);
-        String confirmUrl = "http://localhost:8080/api/verify/" + token.getToken();
+        String confirmUrl = "https://recipes-app-2-api.herokuapp.com/api/verify/" + token.getToken();
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("noreply@recipes-app.example.com");
