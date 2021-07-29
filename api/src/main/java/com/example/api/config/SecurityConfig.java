@@ -83,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowCredentials(true);
         corsConfig.addAllowedOrigin("http://localhost:4200");
+        corsConfig.addAllowedOrigin("https://recipes-app-2-ui.herokuapp.com");
         corsConfig.addAllowedHeader("*");
         corsConfig.addAllowedMethod("*");
 
