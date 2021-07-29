@@ -1,1 +1,16 @@
-<p>recipe works!</p>
+<div *ngIf="recipe" class="recipe-container">
+  <h1 id ="recipe-title">{{recipe.title}}</h1>
+  <img id ="recipe-image" src="{{recipe.image}}">
+  <div class="icons">
+    <mat-icon>star</mat-icon> {{avgGrade}}
+    <mat-icon>question_answer</mat-icon> {{recipe.opinions.length}}
+    <mat-icon>schedule</mat-icon> {{recipe.time}}
+    <mat-icon>info</mat-icon> {{difficulty}}
+    <mat-icon>restaurant</mat-icon> {{recipe.portions}}
+    <h2>Do wykonania przepisu potrzebujesz:</h2>
+    <div id="ingredients-info" *ngFor="let ingredient of recipe.ingredients"> {{ingredient.name}}:
+      {{ingredient.amount}} {{ingredient.measureUnit}}</div>
+  </div>
+  <p id = "recipe-description">{{recipe.description}}</p>
+</div>
+
