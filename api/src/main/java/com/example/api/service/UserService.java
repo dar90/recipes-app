@@ -15,6 +15,7 @@ import com.example.api.dto.UpdateUserDTO;
 import com.example.api.dto.UserProfile;
 import com.example.api.model.User;
 import com.example.api.model.UserRole;
+import com.example.api.repository.EmailVerificationTokenRepoitory;
 import com.example.api.repository.UserRepository;
 
 import org.springframework.mail.MailException;
@@ -31,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserService {
     private final UserRepository repository;
+    private final EmailVerificationTokenRepoitory tokenRepoitory;
     private final PasswordEncoder encoder;
     private final EmailVerificationService emailVerificationService;
     private final Algorithm jwtAlgorithm;
@@ -40,12 +42,14 @@ public class UserService {
                         PasswordEncoder encoder, 
                         EmailVerificationService emailVerificationService, 
                         Algorithm jwtAlgorithm,
-                        AuthenticationManager authManager) {
+                        AuthenticationManager authManager,
+                        EmailVerificationTokenRepoitory tokenRepoitory) {
         this.repository = repository;
         this.encoder = encoder;
         this.emailVerificationService = emailVerificationService;
         this.jwtAlgorithm = jwtAlgorithm;
         this.authManager = authManager;
+        this.tokenRepoitory = tokenRepoitory;
     }
 
     public Optional<User> createUser(RegistrationForm form) {
@@ -57,6 +61,7 @@ public class UserService {
             return Optional.of(user);
         } catch (MailException | NullPointerException e) {
             log.error(e.getMessage());
+            tokenRepoitory.findByUser(user).ifPresent(tokenRepoitory::delete);
             repository.delete(user);
             return Optional.empty();
         }
