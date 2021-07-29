@@ -32,24 +32,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserService {
     private final UserRepository repository;
+    private final EmailVerificationTokenRepoitory tokenRepoitory;
     private final PasswordEncoder encoder;
     private final EmailVerificationService emailVerificationService;
     private final Algorithm jwtAlgorithm;
     private final AuthenticationManager authManager;
-    private final EmailVerificationTokenRepoitory emailVerificationTokenRepoitory;
 
     public UserService(UserRepository repository, 
                         PasswordEncoder encoder, 
                         EmailVerificationService emailVerificationService, 
                         Algorithm jwtAlgorithm,
                         AuthenticationManager authManager,
-                        EmailVerificationTokenRepoitory emailVerificationTokenRepoitory) {
+                        EmailVerificationTokenRepoitory tokenRepoitory) {
         this.repository = repository;
         this.encoder = encoder;
         this.emailVerificationService = emailVerificationService;
         this.jwtAlgorithm = jwtAlgorithm;
         this.authManager = authManager;
-        this.emailVerificationTokenRepoitory = emailVerificationTokenRepoitory;
+        this.tokenRepoitory = tokenRepoitory;
     }
 
     public Optional<User> createUser(RegistrationForm form) {
@@ -61,7 +61,7 @@ public class UserService {
             return Optional.of(user);
         } catch (MailException | NullPointerException e) {
             log.error(e.getMessage());
-            emailVerificationTokenRepoitory.findByUser(user).ifPresent(emailVerificationTokenRepoitory::delete);
+            tokenRepoitory.findByUser(user).ifPresent(tokenRepoitory::delete);
             repository.delete(user);
             return Optional.empty();
         }
