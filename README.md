@@ -19,6 +19,7 @@ https://recipes-app-2-ui.herokuapp.com
 Loading data may take several seconds, because demo is deployed on free hosting.
 
 Demo user credentials
+
 Login: user
 Password: user
 
