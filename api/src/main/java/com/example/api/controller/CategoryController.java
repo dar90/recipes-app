@@ -4,6 +4,8 @@ import java.util.List;
 import com.example.api.dto.UpdateCategoryDTO;
 import com.example.api.model.Category;
 import com.example.api.service.CategoryService;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -30,6 +32,9 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<Category> addCategory(@Valid @RequestBody Category category) {
+        if(service.categoryAlreadyExists(category.getName()))
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        
         return ResponseEntity.ok(service.addCategory(category));
     }
 

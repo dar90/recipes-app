@@ -46,4 +46,8 @@ public class CategoryService {
     public void deleteCategory(String name) {
         repository.deleteById(name);
     }
+
+    public boolean categoryAlreadyExists(String name) {
+        return repository.findById(name).isPresent();
+    }
 }
