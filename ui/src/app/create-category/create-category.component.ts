@@ -56,7 +56,12 @@ export class CreateCategoryComponent implements OnInit {
     };
     this.httpClient.post(AppSettings.API_URL + '/category', body).subscribe(
       category => {},
-      () => this.snackBar.open('Ups! Coś poszło nie tak!', 'OK', {duration: 3000})
+      err => {
+        if(err?.status === 409)
+          this.snackBar.open('Nazwa kategorii jest już zajęta!', 'OK', {duration: 3000});
+        else
+          this.snackBar.open('Ups! Coś poszło nie tak!', 'OK', {duration: 3000});
+      } 
     );
   }
 
