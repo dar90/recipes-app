@@ -34,6 +34,7 @@ import { CategoryComponent } from './category/category.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatRadioModule} from "@angular/material/radio";
+import { CreateCategoryComponent } from './create-category/create-category.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {MatRadioModule} from "@angular/material/radio";
     CategoryCardComponent,
     RecipesListComponent,
     CategoryComponent,
-    CreateRecipeComponent
+    CreateRecipeComponent,
+    CreateCategoryComponent
   ],
   imports: [
     BrowserModule,
