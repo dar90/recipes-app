@@ -35,6 +35,11 @@ import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatRadioModule} from "@angular/material/radio";
 import { CreateCategoryComponent } from './create-category/create-category.component';
+import { DeleteCategoryDialog, ManageCategoriesComponent } from './manage-categories/manage-categories.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -53,7 +58,9 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
     RecipesListComponent,
     CategoryComponent,
     CreateRecipeComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    ManageCategoriesComponent,
+    DeleteCategoryDialog
   ],
   imports: [
     BrowserModule,
@@ -72,7 +79,11 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
     HttpClientModule,
     MatSnackBarModule,
     MatStepperModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    FormsModule
   ],
   providers: [
     AuthService,

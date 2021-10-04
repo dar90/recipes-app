@@ -9,6 +9,7 @@ import {RegistrationSuccessComponent} from "./registration-success/registration-
 import {CategoryComponent} from "./category/category.component";
 import {CreateRecipeComponent} from "./create-recipe/create-recipe.component";
 import { CreateCategoryComponent } from './create-category/create-category.component';
+import { ManageCategoriesComponent } from './manage-categories/manage-categories.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,14 @@ const routes: Routes = [
   },
   {
     path: 'create-category',
+    component: CreateCategoryComponent
+  },
+  {
+    path: 'manage-categories',
+    component: ManageCategoriesComponent
+  },
+  {
+    path: 'edit-category/:name',
     component: CreateCategoryComponent
   }
 ];

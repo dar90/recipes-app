@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Czy chcesz usunąć kategorię "{{data.name}}"?</h1>
+<div mat-dialog-content>Przepisy należące do tej kategorii nie zostaną usunięte.</div> <br>
+<div mat-dialog-actions>
+    <button class="mat-button" (click)="dialogRef.close('close')">Anuluj</button>
+    <button class="mat-raised-button mat-primary" color="primary" (click)="dialogRef.close('delete')">Usuń</button>
+</div>

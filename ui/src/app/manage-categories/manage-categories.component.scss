@@ -1,0 +1,24 @@
+.table-container {
+    width: 50%;
+    min-width: 500px;
+}
+
+th, td {
+    width: 33%;
+}
+
+.options-button {
+    margin-right: 2px;
+}
+
+.manage-categories-container {
+    flex-direction: column;
+}
+
+.filter-row-container {
+    width: 50%;
+    min-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}

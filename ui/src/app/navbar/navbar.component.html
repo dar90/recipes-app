@@ -2,6 +2,7 @@
     <div>
       <a mat-button routerLink="">Strona główna</a>
       <a mat-button *ngIf="role !== 'NOT_LOGGED_IN'" routerLink="/create-recipe">Dodaj przepis</a>
+      <a mat-button *ngIf="role === 'MODERATOR' || role === 'ADMIN'" routerLink="/manage-categories">Zarządzaj kategoriami</a>
     </div>
     <div>
       <a mat-button routerLink="/login" *ngIf="role === 'NOT_LOGGED_IN'">Logowanie</a>
