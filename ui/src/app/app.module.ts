@@ -40,6 +40,9 @@ import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { ManageRecipeCategoriesComponent } from './manage-recipe-categories/manage-recipe-categories.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,8 @@ import { FormsModule } from '@angular/forms';
     CreateRecipeComponent,
     CreateCategoryComponent,
     ManageCategoriesComponent,
-    DeleteCategoryDialog
+    DeleteCategoryDialog,
+    ManageRecipeCategoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +87,9 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   providers: [
     AuthService,

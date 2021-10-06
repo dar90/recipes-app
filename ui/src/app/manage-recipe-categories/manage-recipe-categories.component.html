@@ -1,0 +1,29 @@
+<div *ngIf="role === 'MODERATOR' || role === 'ADMIN'">
+
+    <div class="chip-list">
+
+        <h4>
+            Lista kategorii
+        </h4>
+    
+        <mat-chip-list>
+
+            <mat-chip *ngFor="let category of recipe.categories">
+                {{category.name}} <mat-icon class="remove-category-icon" (click)="removeCategory(category)">cancel</mat-icon>
+            </mat-chip>
+
+            <mat-form-field class="add-category-form">
+                <mat-label>Dodaj kategorię...</mat-label>
+                <input matInput [matAutocomplete]="auto" #categoryInput (keyup)="filterAutocomplete()">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addCategory($event?.option?.value)">
+                    <mat-option *ngFor="let cat of filteredCategoriesToPick" [value]="cat">
+                        {{cat.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+        </mat-chip-list>
+
+    </div>
+
+</div>

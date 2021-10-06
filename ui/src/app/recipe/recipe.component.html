@@ -1,5 +1,10 @@
 <div *ngIf="recipe" class="recipe-container">
   <h1 id ="recipe-title">{{recipe.title}}</h1>
+
+  <div style="margin-left: 20px; width: 90%;">
+    <app-manage-recipe-categories [recipe]="recipe"></app-manage-recipe-categories>
+  </div>
+  
   <img id ="recipe-image" src="{{recipe.image}}">
   <div class="icons">
     <mat-icon>star</mat-icon> {{avgGrade}}
