@@ -2,6 +2,7 @@ package com.example.api.controller;
 
 import java.util.List;
 import com.example.api.dto.UpdateRecipeDTO;
+import com.example.api.model.Category;
 import com.example.api.model.Recipe;
 import com.example.api.service.RecipeService;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,12 @@ public class RecipeController {
     @PutMapping
     public ResponseEntity<Recipe> putRecipe(@Valid @RequestBody UpdateRecipeDTO recipeDto) {
         return ResponseEntity.of(service.putRecipe(recipeDto));
+    }
+
+    @PatchMapping("/{id}/categories")
+    public ResponseEntity<Recipe> updateRecipeCategories(@PathVariable("id") Long id, 
+                                                        @RequestBody List<Category> categories) {
+        return ResponseEntity.of(service.updateRecipeCategories(id, categories));
     }
 
     @DeleteMapping("/{id}")
