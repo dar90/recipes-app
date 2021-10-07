@@ -1,0 +1,91 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Zmiana danych</h1>
+  <mat-grid-list [cols]="appWidth > 620 ? 2 : 1" rowHeight="300px">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Zmiana hasła
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>
+
+            <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+              <mat-form-field class="form-field">
+                <input matInput type="password" placeholder="Stare hasło" formControlName="oldPassword">
+                <mat-error *ngIf="oldPassword?.errors?.required">
+                  To pole jest wymagane
+                </mat-error>
+              </mat-form-field> <br>
+              <mat-form-field class="form-field">
+                <input matInput type="password" placeholder="Nowe hasło" formControlName="newPassword">
+                <mat-error *ngIf="newPassword?.errors?.required">
+                  To pole jest wymagane
+                </mat-error>
+                <mat-error *ngIf="newPassword?.errors?.minlength ||
+                                  newPassword?.errors?.maxlength">
+                  Hasło powinno zawierać od 5 do 55 znaków
+                </mat-error>
+              </mat-form-field> <br>
+              <mat-form-field class="form-field">
+                <input matInput type="password" placeholder="Powtórz nowe hasło" formControlName="repeatedNewPassword">
+                <mat-error *ngIf="repeatedNewPassword?.errors?.required">
+                  To pole jest wymagane
+                </mat-error>
+                <mat-error *ngIf="(repeatedNewPassword?.errors?.minlength ||
+                                  repeatedNewPassword?.errors?.maxlength) &&
+                                   !repeatedNewPassword?.errors?.equalPasswords">
+                  Hasło powinno zawierać od 5 do 55 znaków
+                </mat-error>
+                <mat-error *ngIf="repeatedNewPassword?.errors?.equalPasswords">
+                  Podane hasła nie są takie same
+                </mat-error>
+              </mat-form-field>
+              <button type="submit" mat-raised-button color="accent" [disabled]="!passwordForm.valid">
+                Zmień hasło
+              </button>
+            </form>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Zmiana adresu e-mail
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>
+
+            <form [formGroup]="emailForm" (ngSubmit)="changeEmail()">
+              <mat-form-field class="form-field">
+                <input matInput placeholder="Nowy adres email" formControlName="newEmail">
+                <mat-error *ngIf="newEmail?.errors?.required">
+                  To pole jest wymagane
+                </mat-error>
+                <mat-error *ngIf="newEmail?.errors?.email">
+                  Podany adres email nie jest prawidłowy
+                </mat-error>
+              </mat-form-field> <br>
+              <mat-form-field class="form-field">
+                <input matInput type="password" placeholder="Podaj hasło" formControlName="password">
+                <mat-error *ngIf="password?.errors?.required">
+                  To pole jest wymagane
+                </mat-error>
+              </mat-form-field>
+              <button type="submit" mat-raised-button color="accent" [disabled]="!emailForm.valid">
+                Zmień adres email
+              </button>
+            </form>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

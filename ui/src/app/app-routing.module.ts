@@ -10,6 +10,7 @@ import {CategoryComponent} from "./category/category.component";
 import {CreateRecipeComponent} from "./create-recipe/create-recipe.component";
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { ManageCategoriesComponent } from './manage-categories/manage-categories.component';
+import { UserUpdateComponent } from './user-update/user-update.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'edit-category/:name',
     component: CreateCategoryComponent
+  },
+  {
+    path: 'update-user',
+    component: UserUpdateComponent
   }
 ];
 

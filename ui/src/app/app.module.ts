@@ -43,6 +43,9 @@ import { FormsModule } from '@angular/forms';
 import { ManageRecipeCategoriesComponent } from './manage-recipe-categories/manage-recipe-categories.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { UserUpdateComponent } from './user-update/user-update.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CreateCategoryComponent,
     ManageCategoriesComponent,
     DeleteCategoryDialog,
-    ManageRecipeCategoriesComponent
+    ManageRecipeCategoriesComponent,
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +93,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatDialogModule,
     FormsModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatGridListModule,
+    MatMenuModule
   ],
   providers: [
     AuthService,
