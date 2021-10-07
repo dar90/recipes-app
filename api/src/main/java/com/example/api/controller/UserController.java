@@ -100,6 +100,9 @@ public class UserController {
         if(service.isPasswordValid(emailDTO.password()))
             return ResponseEntity.badRequest().build();
 
+        if(service.emailAlreadyExists(emailDTO.newEmail()))
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+
         service.updateCurrentUserEmail(emailDTO.newEmail());
         return ResponseEntity.ok(null);
     }
