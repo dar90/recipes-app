@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import com.example.api.dto.LoginForm;
 import com.example.api.dto.RegistrationForm;
 import com.example.api.dto.UpdateUserDTO;
+import com.example.api.dto.UpdateUserEmailDTO;
+import com.example.api.dto.UpdateUserPasswordDTO;
 import com.example.api.dto.UserProfile;
 import com.example.api.model.User;
 import com.example.api.service.UserService;
@@ -79,6 +81,27 @@ public class UserController {
     @PutMapping
     public ResponseEntity<User> putUser(@Valid @RequestBody UpdateUserDTO userDto) {
         return ResponseEntity.of(service.putUser(userDto));
+    }
+
+    @PatchMapping("/password")
+    public ResponseEntity<Void> updateUserPassword(UpdateUserPasswordDTO passwordDTO) {
+        if(service.isPasswordValid(passwordDTO.oldPassword()))
+            return ResponseEntity.badRequest().build();
+
+        if(!passwordDTO.newPassword().equals(passwordDTO.repeatedNewPassword()))
+            return ResponseEntity.badRequest().build();
+
+        service.updateCurrentUserPassword(passwordDTO.newPassword());
+        return ResponseEntity.ok(null);
+    } 
+
+    @PatchMapping("/email")
+    public ResponseEntity<Void> updateUserEmail(@Valid UpdateUserEmailDTO emailDTO) {
+        if(service.isPasswordValid(emailDTO.password()))
+            return ResponseEntity.badRequest().build();
+
+        service.updateCurrentUserEmail(emailDTO.newEmail());
+        return ResponseEntity.ok(null);
     }
 
 }

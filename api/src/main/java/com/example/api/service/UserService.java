@@ -162,4 +162,21 @@ public class UserService {
         return Optional.of(user);
     }
 
+    public boolean isPasswordValid(String password) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return encoder.matches(password, currentUser.getPassword());
+    }
+
+    public void updateCurrentUserPassword(String newPassword) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        currentUser.setPassword(encoder.encode(newPassword));
+        repository.save(currentUser);
+    }
+
+    public void updateCurrentUserEmail(String newEmail) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        currentUser.setEmail(newEmail);
+        repository.save(currentUser);
+    }
+
 }
