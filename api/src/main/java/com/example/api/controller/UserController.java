@@ -84,8 +84,8 @@ public class UserController {
     }
 
     @PatchMapping("/password")
-    public ResponseEntity<Void> updateUserPassword(UpdateUserPasswordDTO passwordDTO) {
-        if(service.isPasswordValid(passwordDTO.oldPassword()))
+    public ResponseEntity<Void> updateUserPassword(@RequestBody @Valid UpdateUserPasswordDTO passwordDTO) {
+        if(!service.isPasswordValid(passwordDTO.oldPassword()))
             return ResponseEntity.badRequest().build();
 
         if(!passwordDTO.newPassword().equals(passwordDTO.repeatedNewPassword()))
@@ -96,8 +96,8 @@ public class UserController {
     } 
 
     @PatchMapping("/email")
-    public ResponseEntity<Void> updateUserEmail(@Valid UpdateUserEmailDTO emailDTO) {
-        if(service.isPasswordValid(emailDTO.password()))
+    public ResponseEntity<Void> updateUserEmail(@RequestBody @Valid UpdateUserEmailDTO emailDTO) {
+        if(!service.isPasswordValid(emailDTO.password()))
             return ResponseEntity.badRequest().build();
 
         if(service.emailAlreadyExists(emailDTO.newEmail()))
