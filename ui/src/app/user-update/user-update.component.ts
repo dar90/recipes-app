@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppSettings } from '../AppSettings';
 
 @Component({
   selector: 'app-user-update',
@@ -13,7 +16,8 @@ export class UserUpdateComponent implements OnInit {
 
   appWidth: number;
 
-  constructor() {}
+  constructor(private httpClient: HttpClient,
+              private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.appWidth = window.innerWidth;
@@ -71,11 +75,31 @@ export class UserUpdateComponent implements OnInit {
   }
 
   changePassword(): void {
-    console.log('change password');
+    const body = {
+      oldPassword: this.oldPassword?.value,
+      newPassword: this.newPassword?.value,
+      repeatedNewPassword: this.repeatedNewPassword?.value
+    };
+    this.httpClient.patch(AppSettings.API_URL + '/user/password', body).subscribe(
+      () => this.snackBar.open('Hasło zostało zmienione', 'OK', {duration: 3000}),
+      () => this.snackBar.open('Nie udało się zmienić hasła!', 'OK', {duration: 3000})
+    );
   }
 
   changeEmail(): void {
-    console.log('change email');
+    const body = {
+      password: this.password?.value,
+      newEmail: this.newEmail?.value
+    };
+    this.httpClient.patch(AppSettings.API_URL + '/user/email', body).subscribe(
+       () => this.snackBar.open('Adres email został zmieniony', 'OK', {duration: 3000}),
+      err => {
+        if(err?.status === 409)
+          this.snackBar.open('Wybrany adres email jest zajęty!', 'OK', {duration: 3000});
+        else
+          this.snackBar.open('Nie udało się zmienić adresu email!', 'OK', {duration: 3000});
+      }
+    );
   }
 
   @HostListener('window:resize')
