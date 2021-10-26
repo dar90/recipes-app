@@ -1,3 +1,6 @@
+[Polski](https://github.com/dar90/recipes-app)
+[English](https://github.com/dar90/recipes-app/blob/master/README.en.md)
+
 # RecipesApp
 
 RecipesApp - online cookbook.
