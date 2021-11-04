@@ -30,6 +30,6 @@ Hasło: user
 
 * sekcja komentarzy pod przepisem, oraz poprawienie widoku przepisu
 * zarządzanie przepisami i komentarzami
-* zarządzanie kategoriami
+* ~~zarządzanie kategoriami~~ :heavy_check_mark:
 * zarządzanie użytkownikami
 * testy jednostkowe
