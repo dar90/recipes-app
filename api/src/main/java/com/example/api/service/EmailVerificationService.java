@@ -9,6 +9,7 @@ import com.example.api.model.UserRole;
 import com.example.api.repository.EmailVerificationTokenRepoitory;
 import com.example.api.repository.UserRepository;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,6 +20,9 @@ public class EmailVerificationService {
     private final EmailVerificationTokenRepoitory repository;
     private final UserRepository userRepository;
     private final JavaMailSender mailSender;
+    
+    @Value("${SPRING_MAIL_USERNAME}")
+    private String fromAddress;
 
     public EmailVerificationService(EmailVerificationTokenRepoitory repository, 
                                     UserRepository userRepository, 
@@ -49,7 +53,7 @@ public class EmailVerificationService {
         String confirmUrl = "https://recipes-app-2-api.herokuapp.com/api/verify/" + token.getToken();
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@recipes-app.example.com");
+        message.setFrom(fromAddress);
         message.setTo(user.getEmail());
         message.setSubject("Verify Your email address " + user.getLogin());
         message.setText("Click this link to confirm Your email: " + confirmUrl);
