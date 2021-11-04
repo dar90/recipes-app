@@ -30,6 +30,6 @@ Password: user
 
 * comments section under recipe
 * recipes and comments management
-* categories management
+* ~~categories management~~ :heavy_check_mark:
 * users management (blocking, etc.)
 * unit tests
