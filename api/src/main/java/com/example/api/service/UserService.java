@@ -15,6 +15,7 @@ import com.example.api.dto.UpdateUserDTO;
 import com.example.api.dto.UserProfile;
 import com.example.api.model.User;
 import com.example.api.model.UserRole;
+import com.example.api.repository.EmailVerificationTokenRepoitory;
 import com.example.api.repository.UserRepository;
 
 import org.springframework.mail.MailException;
@@ -35,17 +36,20 @@ public class UserService {
     private final EmailVerificationService emailVerificationService;
     private final Algorithm jwtAlgorithm;
     private final AuthenticationManager authManager;
+    private final EmailVerificationTokenRepoitory emailVerificationTokenRepoitory;
 
     public UserService(UserRepository repository, 
                         PasswordEncoder encoder, 
                         EmailVerificationService emailVerificationService, 
                         Algorithm jwtAlgorithm,
-                        AuthenticationManager authManager) {
+                        AuthenticationManager authManager,
+                        EmailVerificationTokenRepoitory emailVerificationTokenRepoitory) {
         this.repository = repository;
         this.encoder = encoder;
         this.emailVerificationService = emailVerificationService;
         this.jwtAlgorithm = jwtAlgorithm;
         this.authManager = authManager;
+        this.emailVerificationTokenRepoitory = emailVerificationTokenRepoitory;
     }
 
     public Optional<User> createUser(RegistrationForm form) {
@@ -57,6 +61,7 @@ public class UserService {
             return Optional.of(user);
         } catch (MailException | NullPointerException e) {
             log.error(e.getMessage());
+            emailVerificationTokenRepoitory.findByUser(user).ifPresent(emailVerificationTokenRepoitory::delete);
             repository.delete(user);
             return Optional.empty();
         }

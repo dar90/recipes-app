@@ -12,4 +12,5 @@ public interface EmailVerificationTokenRepoitory extends Repository<EmailVerific
     Optional<EmailVerificationToken> findByToken(UUID token);
     EmailVerificationToken save(EmailVerificationToken token);
     Optional<EmailVerificationToken> findByUser(User user);
+    void delete(EmailVerificationToken token);
 }
